@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using X.PagedList
+@using X.PagedList.Mvc.Core;
+@model PagedList<Web5.Models.TDanhMucSp>
+
+@*  <!-- MENU QUỐC GIA -->
+<ul class="menu-quocgia">
+    @foreach (var qg in ViewBag.DanhSachQuocGia)
+    {
+        <li>
+            <a asp-action="Index" asp-route-maNuoc="@qg.MaNuoc">@qg.TenNuoc</a>
+        </li>
+    }
+</ul>  *@
+
+<!-- DANH SÁCH SẢN PHẨM -->
+<!-- Hiển thị tất cả sản phẩm doanh nhân -->
+
+
+<div id="displayproduct" class="row">
+    @foreach (var sp in Model)
+    {
+        @await Html.PartialAsync("PartialSanPham", sp)
+    }
+</div>
+<h3>Sản phẩm doanh nhân</h3>
+<div class="row">
+    @foreach (var sp in Model)
+    {
+        @await Html.PartialAsync("PartialSanPham", sp)
+    }
+</div>
+
+
+<!-- PHÂN TRANG -->
+<div class="product__pagination">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, maNuoc = ViewBag.MaNuoc }))
+</div>
